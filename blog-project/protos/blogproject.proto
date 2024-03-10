@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "blogproject.com/grpc/protos";
+
+package blogproject;
+
+
+service Posts {
+	rpc GetAllPosts (Empty) returns (stream BlogPost);
+	rpc GetPost (Id) returns (BlogPost);
+	rpc CreatePost(BlogPost) returns (BlogPost);
+	rpc UpdatePost (BlogPost) returns (BlogPost);
+	rpc DeletePost (Id) returns (Status);
+}
+
+message BlogPost {
+    string post_id = 1;
+    string title = 2;
+    string content = 3;
+    string author = 4;
+    string publication_date = 5;
+    repeated string tags = 6;
+}
+
+message Empty {}
+
+message Id {
+	string value = 1;
+}
+
+message Status {
+	int32 value = 1; 
+}
+
